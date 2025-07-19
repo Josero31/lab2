@@ -118,6 +118,94 @@ fn update_life(current: &[bool], next: &mut [bool]) {
 
 // Inicializa un patrón creativo con varios organismos clásicos
 fn init_pattern(fb: &mut [bool]) {
+    // Glider invertido (espejo)
+    let glider2 = [ (1,0), (0,1), (2,1), (0,2), (1,2) ];
+    for (dx,dy) in glider2 {
+        let x = 70 + dx;
+        let y = 5 + dy;
+        if x < FB_WIDTH && y < FB_HEIGHT {
+            fb[y * FB_WIDTH + x] = true;
+        }
+    }
+
+    // Glider diagonal abajo-izquierda
+    let glider3 = [ (0,0), (1,1), (2,1), (0,2), (1,2) ];
+    for (dx,dy) in glider3 {
+        let x = 5 + dx;
+        let y = 70 + dy;
+        if x < FB_WIDTH && y < FB_HEIGHT {
+            fb[y * FB_WIDTH + x] = true;
+        }
+    }
+
+    // LWSS invertido
+    let lwss2 = [ (0,0),(1,0),(2,0),(3,0),(4,1),(0,2),(4,2),(1,3),(2,3),(3,3) ];
+    for (dx,dy) in lwss2 {
+        let x = 60 + dx;
+        let y = 60 + dy;
+        if x < FB_WIDTH && y < FB_HEIGHT {
+            fb[y * FB_WIDTH + x] = true;
+        }
+    }
+
+    // Gosper Glider Gun (parcial, solo la parte central para no saturar)
+    let gun = [
+        (1,5),(1,6),(2,5),(2,6),
+        (13,3),(14,3),(12,4),(16,4),(11,5),(17,5),(11,6),(15,6),(17,6),(18,6),(11,7),(17,7),(12,8),(16,8),(13,9),(14,9),
+        (25,1),(23,2),(25,2),(21,3),(22,3),(21,4),(22,4),(21,5),(22,5),(23,6),(25,6),(25,7),
+        (35,3),(36,3),(35,4),(36,4)
+    ];
+    for (dx,dy) in gun {
+        let x = 10 + dx;
+        let y = 10 + dy;
+        if x < FB_WIDTH && y < FB_HEIGHT {
+            fb[y * FB_WIDTH + x] = true;
+        }
+    }
+
+    // Más bloques y osciladores distribuidos
+    let block2 = [ (0,0),(1,0),(0,1),(1,1) ];
+    for (dx,dy) in block2 {
+        let x = 95 + dx;
+        let y = 95 + dy;
+        if x < FB_WIDTH && y < FB_HEIGHT {
+            fb[y * FB_WIDTH + x] = true;
+        }
+    }
+    for (dx,dy) in block2 {
+        let x = 50 + dx;
+        let y = 90 + dy;
+        if x < FB_WIDTH && y < FB_HEIGHT {
+            fb[y * FB_WIDTH + x] = true;
+        }
+    }
+    // Oscilador "toad" extra
+    let toad2 = [ (1,0),(2,0),(3,0),(0,1),(1,1),(2,1) ];
+    for (dx,dy) in toad2 {
+        let x = 80 + dx;
+        let y = 50 + dy;
+        if x < FB_WIDTH && y < FB_HEIGHT {
+            fb[y * FB_WIDTH + x] = true;
+        }
+    }
+    // Oscilador "blinker" extra
+    let blinker2 = [ (0,0),(1,0),(2,0) ];
+    for (dx,dy) in blinker2 {
+        let x = 90 + dx;
+        let y = 10 + dy;
+        if x < FB_WIDTH && y < FB_HEIGHT {
+            fb[y * FB_WIDTH + x] = true;
+        }
+    }
+    // Pentadecathlon extra
+    let pentadecathlon2 = [ (2,0),(2,1),(2,2),(1,3),(3,3),(2,4),(2,5),(2,6),(1,7),(3,7),(2,8),(2,9) ];
+    for (dx,dy) in pentadecathlon2 {
+        let x = 70 + dx;
+        let y = 70 + dy;
+        if x < FB_WIDTH && y < FB_HEIGHT {
+            fb[y * FB_WIDTH + x] = true;
+        }
+    }
     // Glider
     let glider = [ (1,0), (2,1), (0,2), (1,2), (2,2) ];
     for (dx,dy) in glider {
