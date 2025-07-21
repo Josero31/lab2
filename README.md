@@ -1,3 +1,5 @@
+![Ejemplo de simulación](demo.gif)
+
 # Conway's Game of Life - Lab 2
 
 Este proyecto es una implementación en Rust del famoso Juego de la Vida de Conway, con renderizado en tiempo real usando la librería minifb. El juego utiliza un framebuffer lógico de 100x100 celdas y una ventana de 800x600 píxeles, con un estilo visual tipo arcade (células amarillas y fondo azul oscuro).
@@ -38,7 +40,7 @@ Este proyecto es una implementación en Rust del famoso Juego de la Vida de Conw
 - Los colores se pueden ajustar en la función `get_color` y en el fondo de la función `render`.
 
 ## Ejemplo visual
-![Ejemplo de simulación](demo.gif)
+![Ejemplo de simulación](demo.png)
 
 ## Autor
 Josero31
