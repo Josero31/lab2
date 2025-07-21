@@ -63,25 +63,25 @@ fn point(buffer: &mut [u32], x: usize, y: usize, color: u32) {
 }
 
 // Devuelve el color de una celda según su estado
-fn get_color(alive: bool) -> u32 {
+fn get_color(alive: bool, _x: usize, _y: usize) -> u32 {
     if alive {
-        0xFFFFFFFF // Blanco
+        0xFFFFFF00 // Amarillo brillante tipo arcade
     } else {
-        0xFF000000 // Negro
+        0xFF0A0033 // Azul oscuro tipo arcade
     }
 }
 
 
 // Renderiza el estado del juego en el framebuffer de la ventana
 fn render(buffer: &mut [u32], fb: &[bool]) {
-    // Fondo azul oscuro
+    // Fondo azul oscuro tipo arcade
     for pixel in buffer.iter_mut() {
-        *pixel = 0xFF323264;
+        *pixel = 0xFF0A0033;
     }
     for y in 0..FB_HEIGHT {
         for x in 0..FB_WIDTH {
             let idx = y * FB_WIDTH + x;
-            let color = get_color(fb[idx]);
+            let color = get_color(fb[idx], x, y);
             point(buffer, x, y, color);
         }
     }
@@ -118,6 +118,65 @@ fn update_life(current: &[bool], next: &mut [bool]) {
 
 // Inicializa un patrón creativo con varios organismos clásicos
 fn init_pattern(fb: &mut [bool]) {
+    // Glider en diagonal superior derecha
+    let glider4 = [ (1,0), (2,1), (0,2), (1,2), (2,2) ];
+    for (dx,dy) in glider4 {
+        let x = 80 + dx;
+        let y = 80 + dy;
+        if x < FB_WIDTH && y < FB_HEIGHT {
+            fb[y * FB_WIDTH + x] = true;
+        }
+    }
+
+    // Blinker vertical
+    let blinker3 = [ (0,0),(0,1),(0,2) ];
+    for (dx,dy) in blinker3 {
+        let x = 30 + dx;
+        let y = 10 + dy;
+        if x < FB_WIDTH && y < FB_HEIGHT {
+            fb[y * FB_WIDTH + x] = true;
+        }
+    }
+
+    // Toad extra
+    let toad3 = [ (1,0),(2,0),(3,0),(0,1),(1,1),(2,1) ];
+    for (dx,dy) in toad3 {
+        let x = 10 + dx;
+        let y = 60 + dy;
+        if x < FB_WIDTH && y < FB_HEIGHT {
+            fb[y * FB_WIDTH + x] = true;
+        }
+    }
+
+    // Block extra
+    let block3 = [ (0,0),(1,0),(0,1),(1,1) ];
+    for (dx,dy) in block3 {
+        let x = 25 + dx;
+        let y = 75 + dy;
+        if x < FB_WIDTH && y < FB_HEIGHT {
+            fb[y * FB_WIDTH + x] = true;
+        }
+    }
+
+    // Loaf extra
+    let loaf2 = [ (1,0),(2,0),(0,1),(3,1),(1,2),(3,2),(2,3) ];
+    for (dx,dy) in loaf2 {
+        let x = 60 + dx;
+        let y = 30 + dy;
+        if x < FB_WIDTH && y < FB_HEIGHT {
+            fb[y * FB_WIDTH + x] = true;
+        }
+    }
+
+    // Pentadecathlon extra
+    let pentadecathlon3 = [ (2,0),(2,1),(2,2),(1,3),(3,3),(2,4),(2,5),(2,6),(1,7),(3,7),(2,8),(2,9) ];
+    for (dx,dy) in pentadecathlon3 {
+        let x = 15 + dx;
+        let y = 15 + dy;
+        if x < FB_WIDTH && y < FB_HEIGHT {
+            fb[y * FB_WIDTH + x] = true;
+        }
+    }
     // Glider invertido (espejo)
     let glider2 = [ (1,0), (0,1), (2,1), (0,2), (1,2) ];
     for (dx,dy) in glider2 {
